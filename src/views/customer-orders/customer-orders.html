@@ -1,0 +1,61 @@
+<template>
+  <require from="./customer-orders.css"></require>
+  <section class="customer-orders au-animate">
+    <h2>
+      <a class="btn btn-primary" href="#/customers/${currentItem.id}"><i class="fa fa-arrow-left"></i></a> - 
+      <i class="fa fa-folder-open"></i>
+      Customer Orders
+    </h2>
+    <h4>Orders for <a href="#/customers/${currentItem.id}">
+      ${currentItem.firstName} ${currentItem.lastName}
+      </a>
+    </h4>
+    <p>
+      ${currentItem.address}
+      ${currentItem.city}, ${getState(currentItem.state).name}
+    </p>
+    <form> 
+      <table class="table-condensed table"> 
+        <thead class="table-header-blue" 
+          data-sort="items.bind: currentItem.orders; cols: ['product','datePurchased', 'quantity', 'unitPrice']"> 
+          <tr> 
+            <th class="header">Product
+            </th> 
+            <th class="header">Date
+            </th> 
+            <th class="header">Quantity
+            </th> 
+            <th class="header">Unit Price
+            </th> 
+            <th class="header">Total
+            </th> 
+          </tr> 
+        </thead>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><strong>$${getTotal()}</strong></td>
+          </tr>
+        </tfoot>         
+        <tbody> 
+          <tr repeat.for="row of currentItem.orders" with.bind="row">  
+            <td>${product} 
+            </td> 
+            <td>${datePurchased} 
+            </td> 
+            <td>${quantity} 
+            </td> 
+            <td>$${unitPrice} 
+            </td> 
+            <td>$${quantity * unitPrice} 
+            </td> 
+          </tr> 
+        </tbody> 
+      </table> 
+    </form>
+    
+  </section>
+</template>

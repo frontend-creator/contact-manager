@@ -1,0 +1,11 @@
+.orders {
+  position: relative;
+  padding: 0 20px;
+}
+.orders .table-header-blue {
+  background-color: deepskyblue;
+  color: white;
+}
+.orders .filter-input {
+  width: 300px;
+}

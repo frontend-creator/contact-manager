@@ -1,0 +1,78 @@
+<template>
+  <require from="./customers.css"></require>
+  <section class="customers au-animate">
+    <h2>Customers (${items.length} of ${origItems.length})</h2>
+    
+    <listview selected-view="item1">
+      <a slot="buttons-slot"
+        class="btn btn-primary" 
+        href="#/customers/new">
+        <i class="fa fa-plus"></i>
+        Add Customer
+      </a>
+      <data-filter slot="filter-slot" items.bind="origItems" filter-properties="firstName lastName city state"></data-filter>
+      <listview-item header="Card View" name="item1" icon-class="th-large">
+        <div class="my-cards">
+          <div class="my-card filter-item" data-tag="${item.name}" data-tags="${item.tags.join(' ')}" repeat.for="item of items">
+            <div class="my-card-header">
+              ${item.firstName} ${item.lastName}
+              <i class="fa fa-times remove-item" click.delegate="remove(item)"></i>
+            </div>
+            <div class="my-card-content">
+              <img class="my-card-content-img" src.bind="item.imgUrl">
+              <a class="my-card-content-info" href="#/customers/${item.id}"> 
+                <span>${camelCaseToProperCase(item.city)},</span>
+                <span>${camelCaseToProperCase(item.state)}</span>
+                <span>${item.orders.length} Orders</span>
+              </a> 
+            </div>
+          </div> 
+        </div>  
+      </listview-item>
+      <listview-item header="List View" name="item2" icon-class="th-list">
+        <div class="my-table">  
+          <div class="my-table-header border-bottom-1 margin-bottom-10"
+            data-sort="items.bind: origItems; cols: ['lastName|firstName','state|city', 'orders']">
+            <div class="header header-name-area">
+              Name
+            </div>  
+            <div class="header header-location-area">
+              Location
+            </div>  
+            <div class="header header-orders-area">
+              Orders
+            </div>  
+            <div class="header-action-area"></div>  
+          </div>  
+          <div class="my-table-body">  
+            <div class="my-table-body-items filter-item ${$index % 2 == 0 ? '' : 'my-table-body-item-stripped'}" 
+              data-tag="${item.name}" 
+              data-tags="${item.tags.join(' ')}" 
+              repeat.for="m of items"> 
+              <div class="img-area">
+                <img src.bind="m.imgUrl"></img>
+              </div> 
+              <div class="name-area">
+                <a href="#/customers/${m.id}">   
+                  <span>${m.firstName} ${m.lastName}</span>
+                </a>
+              </div>  
+              <div class="location-area">  
+                <span>${camelCaseToProperCase(m.city)}, ${camelCaseToProperCase(m.state)}</span>
+              </div>  
+              <div class="orders-area">  
+                <span>${m.orders.length} Orders</span>
+              </div>  
+              <div class="action-area">
+                <button class="btn btn-danger" click.delegate="remove(item)">
+                  Delete
+                </button>  
+              </div>  
+            </div>  
+          </div>  
+        </div>
+      </listview-item>
+      <data-pager slot="pager-slot" page-size="8" items.bind="origItems"></data-pager>
+    </listview>
+  </section>
+</template>

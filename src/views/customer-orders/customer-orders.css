@@ -1,0 +1,7 @@
+.customer-orders {
+  padding: 0 20px;
+}
+.customer-orders .table-header-blue {
+  background-color: deepskyblue;
+  color: white;
+}

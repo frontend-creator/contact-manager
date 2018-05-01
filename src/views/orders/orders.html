@@ -1,0 +1,66 @@
+<template>
+  <require from="./orders.css"></require>
+  <section class="orders au-animate">
+    <h2>
+      <a class="btn btn-primary" href="#/"><i class="fa fa-arrow-left"></i></a> - 
+      <i class="fa fa-folder-open"></i>
+      All Customer Orders
+    </h2>
+    <data-filter slot="filter-slot" 
+      items.bind="items" 
+      filter-label="Filter by Name/Product:"
+      filter-properties="firstName lastName product"
+      filter-sub-items="orders"></data-filter>
+    <form>
+      <div repeat.for="currentItem of items">
+        <h4>
+          <a href="#/customers/${currentItem.id}/orders">
+            ${currentItem.firstName} ${currentItem.lastName}
+          </a>
+        </h4>
+        <table class="table-condensed table"> 
+          <thead class="table-header-blue"
+            data-sort="items.one-way: currentItem.orders; index.bind: $index; cols: ['product','datePurchased', 'quantity', 'unitPrice']"
+          > 
+            <tr> 
+              <th class="header">Product
+              </th> 
+              <th class="header">Date
+              </th> 
+              <th class="header">Quantity
+              </th> 
+              <th class="header">Unit Price
+              </th> 
+              <th class="header">Total
+              </th> 
+            </tr> 
+          </thead>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><strong>$${getTotal(currentItem)}</strong></td>
+            </tr>
+          </tfoot>         
+          <tbody> 
+            <tr repeat.for="row of currentItem.orders" with.bind="row">  
+              <td>${product} 
+              </td> 
+              <td>${datePurchased} 
+              </td> 
+              <td>${quantity} 
+              </td> 
+              <td>$${unitPrice} 
+              </td> 
+              <td>$${quantity * unitPrice} 
+              </td> 
+            </tr> 
+          </tbody> 
+        </table> 
+      </div>
+    </form>
+    
+  </section>
+</template>

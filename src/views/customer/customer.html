@@ -1,0 +1,70 @@
+<template>
+  <require from="./customer.css"></require>
+  <section class="customer au-animate">
+    <h2>
+      <a class="btn btn-primary"
+        href="#/"><i class="fa fa-arrow-left"></i></a> - 
+      <i class="fa fa-pencil-square-o"></i>
+      Edit Customer
+    </h2>
+    <h4>${currentItem.firstName} ${currentItem.lastName}
+      <a href="#/customers/${currentItem.id}/orders">
+        (View Orders)
+      </a>
+    </h4>
+    <form>
+      <div class="form-group">
+        <label for="firstName">First Name
+      </label>
+        <input type="text" id="firstName" class="form-control" value.bind="currentItem.firstName">
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name
+      </label>
+        <input type="text" id="lastName" class="form-control" value.bind="currentItem.lastName">
+      </div>
+      <div class="form-group">
+        <h5 class="">Gender
+        </h5>
+        <label for="${opt}" repeat.for="opt of genderList" class="gender"> 
+          <input type="radio" id="${opt}" name="genderGroup" value.bind="opt" checked.bind="currentItem.gender">
+          ${camelCaseToProperCase(opt)} 
+      </label>
+      </div>
+      <div class="form-group">
+        <label for="email">Email
+      </label>
+        <input type="email" id="email" class="form-control" value.bind="currentItem.email">
+      </div>
+      <div class="form-group">
+        <label for="address">Address
+      </label>
+        <input type="text" id="address" class="form-control" value.bind="currentItem.address">
+      </div>
+      <div class="form-group">
+        <label for="city">City
+      </label>
+        <input type="text" id="city" class="form-control" value.bind="currentItem.city">
+      </div>
+      <div class="form-group">
+        <label for="state">State
+      </label>
+        <select id="state" class="form-control" value.bind="currentItem.state"> 
+        <option model.bind="null">Choose...</option> 
+        <option repeat.for="opt of stateList" model.bind="opt.value">
+          ${opt.name} 
+        </option> 
+      </select>
+      </div>
+      <div class="form-group">
+        <label for="zip">Zip
+      </label>
+        <input type="text" id="zip" class="form-control" value.bind="currentItem.zip">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary">Update</button>
+        <button class="btn btn-danger">Delete</button>
+      </div>
+    </form>
+  </section>
+</template>
